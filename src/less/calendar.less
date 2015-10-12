@@ -1,0 +1,113 @@
+.cc-calendar {
+  font-size: 12px;
+  a {
+    color: #666;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+  }
+  .cc-state-disable {
+    color: #d6d6d6;
+    cursor: default;
+  }
+}
+
+.cc-calendar-header {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  a {
+    padding: 0 15px;
+    font-size: 24px;
+    color: #999;
+  }
+  .cc-calendar-prev {
+    float: left;
+  }
+  .cc-calendar-next {
+    float: right;
+  }
+  .cc-calendar-title {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+  }
+  .cc-calendar-year,
+  .cc-calendar-month {
+    vertical-align: middle;
+  }
+}
+
+.cc-calendar-calendar {
+  width: 100%;
+  border-collapse: collapse;
+  th, td {
+    border: 1px solid #e3e3e3;
+    font-weight: normal;
+  }
+
+  thead th {
+    text-align: center;
+    border: none;
+  }
+
+  @cellHeight: 50px;
+  thead th span,
+  .cc-state-default {
+    display: block;
+    min-height: @cellHeight;
+    _height: @cellHeight;
+    position: relative;
+  }
+
+  thead th span {
+    font-size: 14px;
+    line-height: @cellHeight;
+  }
+
+  td.cc-calendar-unSelectable {
+    color: #d6d6d6;
+  }
+
+  td.cc-calendar-today {
+    background: #f5f5f5;
+  }
+
+  td.cc-calendar-current-day {
+
+  }
+
+  td.cc-calendar-current-day .cc-state-active {
+    margin: -1px;
+    border: 1px solid #f86851;
+  }
+
+  .cc-print-price,
+  .cc-print-package {
+    position: absolute;
+  }
+
+  .cc-print-price {
+    bottom: 5px;
+    left: 5px;
+    color: #f86851;
+  }
+
+  .cc-print-package {
+    top: 5px;
+    left: 5px;
+    line-height: 1;
+    padding: 3px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+  }
+
+  .cc-print-day {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+}
+
