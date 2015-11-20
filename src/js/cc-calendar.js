@@ -51,7 +51,7 @@
         this.$el = $(element);
         this._options = $.extend({}, Calendar.DEFAULTS, options);
         this._init();
-    }
+    };
 
     Calendar.DEFAULTS = {
         date: null, // 初始化日期
@@ -62,7 +62,7 @@
         monthChangeable: false,
         yearChangeable: false,
         onRenderData: null // 渲染数据时的回调
-    }
+    };
 
     // 方法
     Calendar.prototype = {
@@ -113,8 +113,10 @@
                         this._option('selectedDate',
                             date = new Date(cell.attr('data-year'), cell.attr('data-month'), match.find('.cc-print-day').text()));
 
+                        var dateStr = '' + cell.attr('data-year') + formatNumber((parseInt(cell.attr('data-month')) + 1), 2) + formatNumber(match.find('.cc-print-day').text(), 2);
+
                         // 选择某一天
-                        this.$el.trigger('select', [formatDate(date), cell]);
+                        this.$el.trigger('select', [dateStr, cell]);
                         this.refresh();
                     } else if ((match = $(target).closest('.cc-calendar-prev, .cc-calendar-next', root)) && match.length) {
                         // 上下月
@@ -202,10 +204,13 @@
             year = tmpDate.getFullYear();
 
             if (month != opts._drawMonth || year != opts._drawYear) {
-                this.$el.trigger('monthChange', [opts._drawMonth = month, opts._drawYear = year]);
+                opts._drawMonth = month;
+                opts._drawYear = year;
+                this.$el.trigger('monthChange', [year, formatNumber(month + 1, 2)]);
 
                 opts._invalid = true;
-                this.refresh();
+                // ajax延时操作不会等待，需要手动刷新
+                //this.refresh();
             }
 
             return this;
@@ -308,7 +313,7 @@
                 max;
 
             html += '<a class="cc-calendar-prev' + (minDate && minDate > lpd ?
-                    ' cc-state-disable' : '') + '" href="#">&lt;</a><div class="cc-calendar-title">';
+                    ' cc-state-disable' : '') + '" href="javascript:;">&lt;</a><div class="cc-calendar-title">';
 
             if (data.yearChangeable) {
                 html += '<select class="cc-calendar-year">';
@@ -335,7 +340,7 @@
             }
 
             html += '</div><a class="cc-calendar-next' + (maxDate && maxDate < fnd ?
-                    ' cc-state-disable' : '') + '" href="#">&gt;</a></div>';
+                    ' cc-state-disable' : '') + '" href="javascript:;">&gt;</a></div>';
             return html;
         },
 
@@ -396,7 +401,7 @@
             return output;
         }
 
-    }
+    };
 
     prototype = Calendar.prototype;
 

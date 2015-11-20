@@ -54,32 +54,63 @@
                     package: true
                 }
             ];
-            var data3 = [
-                {
-                    date: '2015-11-10',
-                    id: 1,
-                    price: '100.00',
-                    package: true
-                },
-                {
-                    date: '2015-11-20',
-                    id: 1,
-                    price: '100.00',
-                    package: true
-                },
-                {
-                    date: '2015-11-21',
-                    id: 1,
-                    price: '120.00',
-                    package: true
-                },
-                {
-                    date: '2015-11-22',
-                    id: 1,
-                    price: '120.00',
-                    package: true
-                }
-            ];
+            var data3 = [{
+                "date": "2015-11-01",
+                "line_id": 17,
+                "day": "20151101",
+                "stock": "11111",
+                "price": 22222,
+                "childprice": 22222,
+                "package": false
+            }, {
+                "date": "2015-11-02",
+                "line_id": 17,
+                "day": "20151102",
+                "stock": "11111",
+                "price": 22222,
+                "childprice": 22222,
+                "package": false
+            }, {
+                "date": "2015-11-03",
+                "line_id": 17,
+                "day": "20151103",
+                "stock": "11111",
+                "price": 22222,
+                "childprice": 22222,
+                "package": false
+            }, {
+                "date": "2015-11-04",
+                "line_id": 17,
+                "day": "20151104",
+                "stock": "11111",
+                "price": 22222,
+                "childprice": 22222,
+                "package": false
+            }, {
+                "date": "2015-11-05",
+                "line_id": 17,
+                "day": "20151105",
+                "stock": "11111",
+                "price": 22222,
+                "childprice": 22222,
+                "package": false
+            }, {
+                "date": "2015-11-06",
+                "line_id": 17,
+                "day": "20151106",
+                "stock": "11111",
+                "price": 22222,
+                "childprice": 22222,
+                "package": false
+            }, {
+                "date": "2015-11-07",
+                "line_id": 17,
+                "day": "20151107",
+                "stock": "11111",
+                "price": 22222,
+                "childprice": 22222,
+                "package": false
+            }];
             var date = new Date();
             var $calendar = $('#calendar');
             $calendar.calendar({
@@ -105,7 +136,9 @@
 </head>
 <body>
 
-<div id="calendar"></div>
+<div style="margin: 100px auto; width: 500px;">
+    <div id="calendar"></div>
+</div>
 
 
 </body>

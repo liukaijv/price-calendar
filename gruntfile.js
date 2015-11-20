@@ -22,7 +22,8 @@ module.exports = function (grunt) {
             },
             my_target: {
                 files: {
-                    'dist/js/calendar.min.js': ['src/js/calendar.js']
+                    'dist/js/cc-calendar.min.js': ['src/js/cc-calendar.js'],
+                    'dist/js/cc-spinner.min.js': ['src/js/cc-spinner.js']
                 }
             }
         },
