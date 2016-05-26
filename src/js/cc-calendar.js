@@ -1,4 +1,8 @@
-// 日历控件
+/**
+ *  日历控件
+ *  可渲染价格……其它信息
+ *  base on GUM
+ */
 
 ;
 (function ($) {
@@ -58,10 +62,10 @@
         firstDay: 1, // 一周从星期几开始
         minDate: null, // 最小日期
         maxDate: null, // 最大日期
-        dateData: null, // 数据
+        // 数据格式为:[{date:'2015-01-01',id:1, price:'100.00'}]
+        dateData: null,
         monthChangeable: false,
-        yearChangeable: false,
-        onRenderData: null // 渲染数据时的回调
+        yearChangeable: false
     };
 
     // 方法
@@ -209,8 +213,7 @@
                 this.$el.trigger('monthChange', [year, formatNumber(month + 1, 2)]);
 
                 opts._invalid = true;
-                // ajax延时操作不会等待，需要手动刷新
-                //this.refresh();
+                this.refresh();
             }
 
             return this;
@@ -328,7 +331,7 @@
             }
 
             if (data.monthChangeable) {
-                html += '<select class="cc-calendar-month">';
+                html += ' <select class="cc-calendar-month">';
 
                 for (i = 0; i < 12; i++) {
                     html += '<option value="' + i + '" ' + (i == drawMonth ?
@@ -349,11 +352,15 @@
 
             var otherMonth = (printDate.getMonth() !== drawMonth),
                 unSelectable,
-                dataDisplay;
+                dateStr = formatDate(printDate),
+                dataDisplay = '';
 
-            dataDisplay = this._renderData(printDate, data);
+            unSelectable = otherMonth || (minDate && printDate < minDate) || (maxDate && printDate > maxDate);
 
-            unSelectable = otherMonth || (minDate && printDate < minDate) || (maxDate && printDate > maxDate) || !dataDisplay;
+            // 必须为数组不能为空
+            if (!unSelectable) {
+                dataDisplay = this._renderData(dateStr, data);
+            }
 
             return "<td class='" + ((j + firstDay + 6) % 7 >= 5 ? "cc-calendar-week-end" : "") + // 标记周末
 
@@ -366,37 +373,29 @@
                 (unSelectable ? "" : " data-month='" + printDate.getMonth() + "' data-year='" + printDate.getFullYear() + "'") + ">" +
 
                 (otherMonth ? "&#xa0;" : (unSelectable ? "<span class='cc-state-default'><span class='cc-print-day'>" + printDate.getDate() + "</span></span>" :
-                "<a class='cc-state-default" + (printDate.getTime() === today.getTime() ? " cc-state-highlight" : "") + (printDate.getTime() === selectedDate.getTime() ? " cc-state-active" : "") +
+                "<a data-id=" + dateStr + " class='cc-state-default" + (printDate.getTime() === today.getTime() ? " cc-state-highlight" : "") + (printDate.getTime() === selectedDate.getTime() ? " cc-state-active" : "") +
                 "' href='#'><span class='cc-print-day'>" + printDate.getDate() + "</span>" + dataDisplay + "</a>")) + "</td>";
         },
 
-        // 输出数据
-        _renderData: function (printDate, data) {
+        // 渲染表格额外的数据
+        _renderData: function (dateStr, data) {
             var opts = this._options,
-                date,
                 output = '';
 
-            //重新渲染的回调
-            if ($.isFunction(opts.onRenderData)) {
-                return opts.onRenderData(data);
-            }
-            if (data && !$.isEmptyObject(data)) {
+            if ($.isArray(data) && data.length) {
                 $.each(data, function (k, v) {
-                    date = parseDate(v.date);
-                    if (printDate.getTime() === date.getTime()) {
+                    if (dateStr === v.date) {
                         if (v.price) {
-                            output = '<span class="cc-print-price">&yen;' + v.price + '</span>';
-                        }
-                        if (v.package) {
-                            output += '<span class="cc-print-package">套</span>';
+                            output = '<span class="cc-print-price">' + v.price + '</span>';
                         }
                         if (v.id) {
                             output += '<input type="hidden" value="' + v.id + '">';
                         }
                     }
                 });
-
             }
+
+            this.$el.trigger('renderData', [data, dateStr]);
 
             return output;
         }

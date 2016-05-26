@@ -11,7 +11,7 @@ module.exports = function (grunt) {
                     compress: true
                 },
                 files: {
-                    "dist/css/calendar.min.css": "src/less/calendar.less"
+                    "dist/css/calendar.min.css": "src/less/cc-calendar.less"
                 }
             }
         },
@@ -22,8 +22,7 @@ module.exports = function (grunt) {
             },
             my_target: {
                 files: {
-                    'dist/js/cc-calendar.min.js': ['src/js/cc-calendar.js'],
-                    'dist/js/cc-spinner.min.js': ['src/js/cc-spinner.js']
+                    'dist/js/calendar.min.js': ['src/js/cc-calendar.js']                
                 }
             }
         },
