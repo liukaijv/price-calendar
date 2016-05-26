@@ -2,15 +2,17 @@
 
 A calendar can render prices or events
 
+## Demo page
+
+[demo](http://115.28.223.2:9999/price-calendar)
+
 ## Usage
 
 Initialize the plugin on the element
 
 ```
-   $(function(){
-   
-        $('#calendar').calendar(options);
-   
+   $(function(){   
+        $('#calendar').calendar(options);   
    });      
     
 ```
